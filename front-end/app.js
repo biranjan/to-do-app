@@ -95,7 +95,7 @@ function updateItemInBackend(item){
     return result.Id;
 }
 
-function addTodoFromBackend(item,id,completed) {
+function addTodoInFrontEnd(item,id,completed) {
     
     const todoDiv = document.createElement("div");
     todoDiv.classList.add("todo");
@@ -134,12 +134,12 @@ function renderTodoFromBackend() {
     for (var i = 0; i < data.todo.length; i++) {
         var value = data.todo[i].Description;
         var id = data.todo[i].Id;
-        addTodoFromBackend(value,id,false)
+        addTodoInFrontEnd(value,id,false)
     }
     for (var j = 0; j < data.completed.length; j++){
         var value = data.completed[j].Description;
         var id = data.completed[j].Id;
-        addTodoFromBackend(value,id,true)
+        addTodoInFrontEnd(value,id,true)
     }
 }
 
@@ -154,32 +154,8 @@ function addTodo(event) {
     //console.log(todoInput.value.length)
     //renderTodoFromBackend()
     if (todoInput.value.length > 0) {
-        const todoDiv = document.createElement("div");
-        todoDiv.classList.add("todo");
-        //Create LI
-        const newTodo = document.createElement('li');
-        //console.log(length(todoInput.value))
-        //addItemToBackend(todoInput.value)
-        newTodo.innerText = todoInput.value;
         var id = addItemToBackend(todoInput.value);
-        newTodo.id = id;
-        console.log(newTodo);
-        data.todo.push(todoInput.value);
-        newTodo.classList.add('todo-item');
-        todoDiv.appendChild(newTodo);
-        //CHECK MARK BUTTON
-        const completedButton = document.createElement('button');
-        completedButton.innerHTML = '<i class="fas fa-check"></i>';
-        completedButton.classList.add("complete-btn");
-        todoDiv.appendChild(completedButton)
-        //Trash BUTTON
-        const trashButton = document.createElement('button');
-        trashButton.innerHTML = '<i class="fas fa-trash"></i>';
-        trashButton.classList.add("trash-btn");
-        todoDiv.appendChild(trashButton)
-        //Append to list
-        todoList.appendChild(todoDiv);
-        //Clear Todo inpur value
+        addTodoInFrontEnd(todoInput.value,id,false)
         todoInput.value = "";
     } else {
         alert("Empty todo");
